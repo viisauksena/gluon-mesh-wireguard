@@ -1,0 +1,20 @@
+#!/bin/sh
+# check uplink
+
+gredown {
+ifconfig gre6 |grep UP && ifconfig gre6 down
+ifconfig wg0 |grep UP && ifconfig wg0 down
+# we dont care about inactive batif
+exit 0
+}
+
+# br-wan
+ip r |grep br-wan || gredown()
+# actually we only check v4 availability in gluon,
+# crazy if youre on an ipv6 only uplink
+
+# poor mans www check
+ping 8.8.4.4 -c2 -w3 -I br-wan || gredown()
+
+# greup or load wg script at all
+ifconfig wg0 up && ifconfig gre6 up || /lib/gluon/gluon-mesh-wireguard/gluon-mesh-wireguard
