@@ -11,7 +11,7 @@ define Package/gluon-mesh-wireguard
   SECTION:=gluon
   CATEGORY:=Gluon
   TITLE:=gluon-mesh-wireguard
-  DEPENDS:=+gluon-core +micrond +kmod-gre +kmod-gre6 +ip-full +kmod-wireguard +wireguard-tools +gluon-config-mode-core-virtual
+  DEPENDS:=+gluon-core +micrond +kmod-gre +kmod-gre6 +ip-full +kmod-wireguard +wireguard-tools
 endef
 
 define Build/Prepare
@@ -22,13 +22,10 @@ define Build/Configure
 endef
 
 define Build/Compile
-	$(call GluonBuildI18N,gluon-mesh-wireguard,i18n)
-	$(call GluonSrcDiet,./luasrc,$(PKG_BUILD_DIR)/luadest/)
 endef
 
 define Package/gluon-mesh-wireguard/install
         $(CP) ./files/* $(1)/
-	$(CP) $(PKG_BUILD_DIR)/luadest/* $(1)/
 	$(call GluonInstallI18N,gluon-mesh-wireguard,$(1))
 endef
 

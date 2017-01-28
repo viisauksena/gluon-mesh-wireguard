@@ -21,7 +21,7 @@ function M.section(form)
 end
 
 function M.handle(data)
-  uci:set("wireguard", "mesh_vpn", "enabled", data._meshvpn)
+  uci:set("wireguard", "mesh_vpn", "enabled", uci:get_bool("wireguard", "mesh_vpn", "enabled") )
   uci:save("wireguard")
   uci:commit("wireguard")
 

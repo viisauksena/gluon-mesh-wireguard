@@ -1,0 +1,2 @@
+#!/bin/sh
+/lib/gluon/upgrade/400-wireguard 

@@ -7,9 +7,11 @@ some things work slightly different:
 TODO
 
 Things to do:
-config-mode
-forbid freifunk tunnel inside freifunk
-automatism for deactivating / activating if br-wan is active
+* upgrade with keygen
+* load on boot - or micron.d regular check
+* config-mode
+* forbid freifunk tunnel inside freifunk
+* automatism for deactivating / activating if br-wan is active
 
 
 for more Information on WireGuard see 
