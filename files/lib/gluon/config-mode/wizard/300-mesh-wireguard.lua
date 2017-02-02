@@ -15,13 +15,13 @@ function M.section(form)
   local o
 
   o = s:option(cbi.Flag, "_meshvpn", i18n.translate("Use internet connection (wireguard mesh VPN)"))
-  o.default = uci:get_bool("wireguard", "mesh_vpn", "enabled") and o.enabled or o.disabled
+  o.default = uci:get_bool("wireguard", "wireguard", "enabled") and o.enabled or o.disabled
   o.rmempty = false
 
 end
 
 function M.handle(data)
-  uci:set("wireguard", "mesh_vpn", "enabled", uci:get_bool("wireguard", "mesh_vpn", "enabled") )
+  uci:set("wireguard", "wireguard", "enabled", uci:get_bool("wireguard", "wireguard", "enabled") )
   uci:save("wireguard")
   uci:commit("wireguard")
 
