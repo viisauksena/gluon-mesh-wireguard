@@ -1,5 +1,3 @@
-#!/bin/sh
-/lib/gluon/upgrade/400-wireguard 
 local uci = luci.model.uci.cursor()
 local meshvpn_enabled = uci:get("wireguard", "wireguard", "enabled", "0")
 
