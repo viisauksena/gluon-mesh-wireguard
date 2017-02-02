@@ -1,3 +1,18 @@
 #!/bin/sh
 [ -f /root/wg_privatekey ] || wg genkey > /root/wg_privatekey 
 [ -f /root/wg_publickey ] || wg pubkey < /root/wg_privatekey > /root/wg_publickey
+touch /etc/config/wireguard
+uci set wireguard.wireguard=wireguard
+uci set wireguard.wireguard.enabled=1
+uci set wireguard.wireguard.if=wg0
+uci set wireguard.wireguard.v6=1
+uci set wireguard.wireguard.v4=0
+uci set wireguard.wireguard.batman=1
+uci set wireguard.wireguard.secret=$(cat /root/wg_privatekey)
+uci set wireguard.wireguard.port=10099
+uci set wireguard.mesh1=peer
+uci set wireguard.mesh1.PublicKey='Gqntn/96zfRrz6SedcNXzw7b+vyjn6IfZlFM8+6U63E='
+uci set wireguard.mesh1.Endpoint='136.243.153.228:10099'
+uci set wireguard.mesh1.AllowedIps='0.0.0.0/0,::/0'
+
+uci commit wireguard
