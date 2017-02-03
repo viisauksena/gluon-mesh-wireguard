@@ -9,22 +9,32 @@ serverwgv6=fdf1::16:3e75:72af
 ip link del dev wg0 2>/dev/null || true
 ip link add dev wg0 type wireguard
 
-# if conf not exist make 
-if [ ! -f /root/wg_conf ]; then
-	cat<<EOF > /root/wg_conf
-[Interface]
-ListenPort = 10099
+wg set \
+	$(uci get wireguard.wireguard.if) \
+	listen-port $(uci get wireguard.wireguard.port) \
+	private-key /root/wg_privatekey \
+        peer $(uci get wireguard.mesh1.PublicKey) \
+	endpoint $(uci get wireguard.mesh1.Endpoint) \
+	persistent-keepalive 3600 \
+        allowed-ips $(uci get wireguard.mesh1.AllowedIps) \
 
-[Peer]
-PublicKey = Gqntn/96zfRrz6SedcNXzw7b+vyjn6IfZlFM8+6U63E= 
-Endpoint = 136.243.153.228:10099
-AllowedIPs = 0.0.0.0/0,fe80::/0
-EOF
-fi
+
+# if conf not exist make 
+#if [ ! -f /root/wg_conf ]; then
+#	cat<<EOF > /root/wg_conf
+#[Interface]
+#ListenPort = 10099
+#
+#[Peer]
+#PublicKey = Gqntn/96zfRrz6SedcNXzw7b+vyjn6IfZlFM8+6U63E= 
+#Endpoint = 136.243.153.228:10099
+#AllowedIPs = 0.0.0.0/0,fe80::/0
+#EOF
+#fi
 
 # addconf
-wg addconf wg0 /root/wg_conf
-wg set wg0 private-key /root/wg_privatekey
+#wg addconf wg0 /root/wg_conf
+#wg set wg0 private-key /root/wg_privatekey
 ip addr add fdf1::$(cat /sys/class/net/eth0/address|awk 'BEGIN{FS=":"}{print $1$2":"$3$4":"$5$6}')/64 dev wg0
 # ip addr add fe80::$(cat /sys/class/net/eth0/address|awk 'BEGIN{FS=":"}{print $1$2":"$3$4":"$5$6}')/64 dev wg0
 # <me> peer <the other>

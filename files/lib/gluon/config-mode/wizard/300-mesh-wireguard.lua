@@ -21,7 +21,7 @@ function M.section(form)
 end
 
 function M.handle(data)
-  uci:set("wireguard", "wireguard", "enabled", uci:get_bool("wireguard", "wireguard", "enabled") )
+  uci:set("wireguard", "wireguard", "enabled", data.wireguard )
   uci:save("wireguard")
   uci:commit("wireguard")
 
