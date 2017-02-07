@@ -8,13 +8,12 @@ ifconfig wg0 |grep UP && ifconfig wg0 down
 exit 0
 }
 
-# br-wan
-ip r |grep br-wan || gredown()
-# actually we only check v4 availability in gluon,
-# crazy if youre on an ipv6 only uplink
+# check br-wan route
+# only v4 - v6 only may be diff.?!
+ip r show dev br-wan |grep -q default || gredown()
 
-# poor mans www check
-ping 8.8.4.4 -c2 -w3 -I br-wan || gredown()
+# poor mans www check (2 diff. ip)
+ping 8.8.4.4 -c2 -w3 -I br-wan || ping 178.254.39.111 -c2 -w3 -I br-wan || gredown()
 
 # greup or load wg script at all
 ifconfig wg0 up && ifconfig gre6 up || /lib/gluon/gluon-mesh-wireguard/gluon-mesh-wireguard
