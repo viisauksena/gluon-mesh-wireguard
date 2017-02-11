@@ -45,7 +45,7 @@ end
 
 uci:section('wireguard', 'wireguard', 'wireguard', {
 	enabled='1'
-	if='wg0'
+	iface='wg0'
 	v6='1'
 	v4='0'
 	batman='1'
