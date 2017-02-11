@@ -1,10 +1,10 @@
 #!/bin/sh
-
-# IP=192.168.99.4
-serverwgv6=fdf1::16:3e75:72af
+serverwgv6=$(uci get wireguard.mesh1.gretapip)
+ownip=fdf1::$(cat /sys/class/net/eth0/address|awk 'BEGIN{FS=":"}{print $1$2":"$3$4":"$5$6}')
+# fdf1::16:3e75:72af
 
 # check if key exist
-[ -f /root/wg_privatekey ] || wg genkey > /root/wg_privatekey && wg pubkey < /root/wg_privatekey > /root/wg_publickey
+[ -f /root/wg_privatekey ] || wg genkey > /root/wg_privatekey && wg pubkey < /root/wg_privatekey > /tmp/wg_publickey
 # del and make new wg0
 ip link del dev wg0 2>/dev/null || true
 ip link add dev wg0 type wireguard
@@ -18,37 +18,17 @@ wg set \
 	persistent-keepalive 3600 \
         allowed-ips $(uci get wireguard.mesh1.AllowedIps) \
 
-
-# if conf not exist make 
-#if [ ! -f /root/wg_conf ]; then
-#	cat<<EOF > /root/wg_conf
-#[Interface]
-#ListenPort = 10099
-#
-#[Peer]
-#PublicKey = Gqntn/96zfRrz6SedcNXzw7b+vyjn6IfZlFM8+6U63E= 
-#Endpoint = 136.243.153.228:10099
-#AllowedIPs = 0.0.0.0/0,fe80::/0
-#EOF
-#fi
-
 # addconf
-#wg addconf wg0 /root/wg_conf
-#wg set wg0 private-key /root/wg_privatekey
-ip addr add fdf1::$(cat /sys/class/net/eth0/address|awk 'BEGIN{FS=":"}{print $1$2":"$3$4":"$5$6}')/64 dev wg0
-# ip addr add fe80::$(cat /sys/class/net/eth0/address|awk 'BEGIN{FS=":"}{print $1$2":"$3$4":"$5$6}')/64 dev wg0
-# <me> peer <the other>
-# ip address add $IP/32 peer 192.168.99.1/32 dev wg0
-ip address add fdf1::$(cat /sys/class/net/eth0/address|awk 'BEGIN{FS=":"}{print $1$2":"$3$4":"$5$6}')/128 peer $serverwgv6/128 dev wg0
+ip addr add $ownip/64 dev wg0
+ip address add $ownip/128 peer $serverwgv6/128 dev wg0
 ip link set up dev wg0
 
 # grestuff
-# ip link add gre4 type gretap remote 192.168.99.1 local $IP
-ip link add gre6 type ip6gretap local fdf1::$(cat /sys/class/net/eth0/address|awk 'BEGIN{FS=":"}{print $1$2":"$3$4":"$5$6}') remote $serverwgv6 dev wg0
+ip link add gre6 type ip6gretap local $ownip remote $serverwgv6 dev wg0
 ifconfig gre6 up
 
 # batman
 batctl if add gre6
 # echo $IP
-echo fdf1::$(cat /sys/class/net/eth0/address|awk 'BEGIN{FS=":"}{print $1$2":"$3$4":"$5$6}')
+echo $ownip
 wg pubkey < /root/wg_privatekey
