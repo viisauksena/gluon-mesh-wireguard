@@ -44,13 +44,13 @@ end
 
 
 uci:section('wireguard', 'wireguard', 'wireguard', {
-	enabled='1'
-	iface='wg0'
-	v6='1'
-	v4='0'
-	batman='1'
-	secret=''
-	port='10099'
+	enabled='1',
+	iface='wg0',
+	v6='1',
+	v4='0',
+	batman='1',
+	secret='',
+	port='10099',
 })
 -- secret has to be set and saved to file by another script (it has to be in a file because wg need it)
 
@@ -82,7 +82,7 @@ uci:section('wireguard', 'wireguard', 'wireguard', {
 --end
 
 -- do it by hand 
-uci section('wireguard','peer', 'mesh1', {
+uci:section('wireguard','peer', 'mesh1', {
 	PublicKey = site.wireguard.mesh1.PublicKey,
 	enabled = site.wireguard.mesh1.enabled,
 	gretapip = site.wireguard.mesh1.enabled,
