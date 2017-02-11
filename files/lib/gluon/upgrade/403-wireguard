@@ -4,7 +4,7 @@
 touch /etc/config/wireguard
 uci set wireguard.wireguard=wireguard
 uci set wireguard.wireguard.enabled=1
-uci set wireguard.wireguard.if=wg0
+uci set wireguard.wireguard.iface=wg0
 uci set wireguard.wireguard.v6=1
 uci set wireguard.wireguard.v4=0
 uci set wireguard.wireguard.batman=1
