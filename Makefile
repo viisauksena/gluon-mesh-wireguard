@@ -11,7 +11,7 @@ define Package/gluon-mesh-wireguard
   SECTION:=gluon
   CATEGORY:=Gluon
   TITLE:=gluon-mesh-wireguard
-  DEPENDS:=+gluon-core +micrond +kmod-gre +kmod-gre6 +ip-full +kmod-wireguard +wireguard-tools
+  DEPENDS:=+gluon-core +micrond +kmod-gre +kmod-gre6 +ip-full +kmod-wireguard +wireguard-tools +kmod-udptunnel6 +kmod-udptunnel4 +kmod-ipt-hashlimit
 endef
 
 define Build/Prepare
