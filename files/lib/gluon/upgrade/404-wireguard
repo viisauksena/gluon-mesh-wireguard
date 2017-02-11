@@ -1,3 +1,3 @@
 #!/bin/sh
 [ -f /root/wg_privatekey ] || wg genkey > /root/wg_privatekey 
-[ -f /root/wg_publickey ] || wg pubkey < /root/wg_privatekey > /root/wg_publickey
+[ -f /root/wg_publickey ] || wg pubkey < /root/wg_privatekey > /tmp/wg_publickey
