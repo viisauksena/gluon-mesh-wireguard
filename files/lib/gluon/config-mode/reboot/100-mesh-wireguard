@@ -7,6 +7,9 @@ local uci = luci.model.uci.cursor()
   local sysconfig = require 'gluon.sysconfig'
 
   util.exec("/lib/gluon/upgrade/400-wireguard")
+  util.exec("/lib/gluon/upgrade/404-wireguard")
+  util.exec("/lib/gluon/upgrade/405-wireguard")
+
 
   local pretty_hostname = require 'pretty_hostname' 
   local pubkey = util.trim(util.exec("cat /tmp/wg_publickey"))                        
