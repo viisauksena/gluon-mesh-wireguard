@@ -1,7 +1,6 @@
 #!/bin/sh
 serverwgv6=$(uci get wireguard.mesh1.gretapip)
-ownip=fdf1::$(cat /sys/class/net/eth0/address|awk 'BEGIN{FS=":"}{print $1$2":"$3$4":"$5$6}')
-# fdf1::16:3e75:72af
+ownip=$(uci get wireguard.ownip)
 
 # check if key exist
 [ -f /root/wg_privatekey ] || wg genkey > /root/wg_privatekey && wg pubkey < /root/wg_privatekey > /tmp/wg_publickey
