@@ -29,7 +29,7 @@ is actually work in progress, but something like this should work
                 v4 = '0', -- not implemented, and maybe never because of gretap complexity
                 batman = '1', --  this may include all the gretap magic
                 secret = '', -- set on demand on client
-                port = '', -- not used as client/peer
+                port = '50099', -- not used for s2c because of often used nat
                 limit = '1', -- actually unused
                 peer = {
                         mesh1 = {
