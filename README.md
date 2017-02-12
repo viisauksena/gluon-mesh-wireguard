@@ -15,7 +15,7 @@ you can include this package to your modules.
 ```
 GLUON_SITE_FEEDS='... airtime meshwireguard ...'
 PACKAGES_MESHWIREGUARD_REPO=https://github.com/viisauksena/gluon-mesh-wireguard.git
-PACKAGES_MESHWIREGUARD_COMMIT=6926422044dbd05810802da6abe2e501e6debd86
+PACKAGES_MESHWIREGUARD_COMMIT=9ddbbcea0f5d376bd7a7ee55b0c71ead05dd0e85
 PACKAGES_MESHWIREGUARD_BRANCH=master
 ```
 
