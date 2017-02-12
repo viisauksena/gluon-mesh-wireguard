@@ -13,7 +13,7 @@ uci set wireguard.wireguard.batman=$(cat /lib/gluon/site.json| jsonfilter -e '$.
 uci set wireguard.wireguard.ownip=fdf1::$(cat /sys/class/net/eth0/address|awk 'BEGIN{FS=":"}{print $1$2":"$3$4":"$5$6}')
 # empty strings are not working like following
 # uci set wireguard.wireguard.secret=$(cat /root/wg_privatekey)
-# uci set wireguard.wireguard.port=$(cat /lib/gluon/site.json| jsonfilter -e '$.wireguard.port')
+uci set wireguard.wireguard.port=$(cat /lib/gluon/site.json| jsonfilter -e '$.wireguard.port')
 uci set wireguard.wireguard.limit=$(cat /lib/gluon/site.json| jsonfilter -e '$.wireguard.limit')
 uci set wireguard.mesh1=peer
 uci set wireguard.mesh1.enabled=$(cat /lib/gluon/site.json| jsonfilter -e '$.wireguard.peer.mesh1.enabled')
