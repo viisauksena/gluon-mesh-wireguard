@@ -1,6 +1,6 @@
 #!/bin/sh
 serverwgv6=$(uci get wireguard.mesh1.gretapip)
-ownip=$(uci get wireguard.ownip)
+ownip=$(uci get wireguard.wireguard.ownip)
 
 # check if key exist
 [ -f /root/wg_privatekey ] || wg genkey > /root/wg_privatekey && wg pubkey < /root/wg_privatekey > /tmp/wg_publickey
