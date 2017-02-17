@@ -12,6 +12,9 @@ exit 0
 # only v4 - v6 only may be diff.?!
 ip r show dev br-wan |grep -q default || gredown()
 
+# if freifunk network (all other 10.0.0.0/8 fail)
+ip r show dev br-wan |grep -q "src 10.60." && gredown()
+
 # poor mans www check (2 diff. ip)
 ping 8.8.4.4 -c2 -w3 -I br-wan || ping 178.254.39.111 -c2 -w3 -I br-wan || gredown()
 
