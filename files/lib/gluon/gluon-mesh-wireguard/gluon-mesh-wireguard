@@ -14,7 +14,7 @@ wg set \
 	private-key /root/wg_privatekey \
         peer $(uci get wireguard.mesh1.PublicKey) \
 	endpoint $(uci get wireguard.mesh1.Endpoint) \
-	persistent-keepalive 3600 \
+	persistent-keepalive 30 \
         allowed-ips $(uci get wireguard.mesh1.AllowedIps) \
 
 # addconf
