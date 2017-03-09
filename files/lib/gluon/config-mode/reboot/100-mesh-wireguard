@@ -6,7 +6,6 @@ local uci = luci.model.uci.cursor()
   local site = require 'gluon.site_config'
   local sysconfig = require 'gluon.sysconfig'
 
-  util.exec("/lib/gluon/upgrade/400-wireguard")
   util.exec("/lib/gluon/upgrade/404-wireguard")
   util.exec("/lib/gluon/upgrade/405-wireguard")
 
