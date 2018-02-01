@@ -1,11 +1,14 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=gluon-mesh-wireguard
-PKG_VERSION:=1
+PKG_VERSION:=2
 
 PKG_BUILD_DIR := $(BUILD_DIR)/$(PKG_NAME)
 
-include $(INCLUDE_DIR)/package.mk
+include $(TOPDIR)/../package/gluon.mk
+
+PKG_CONFIG_DEPENDS += $(GLUON_I18N_CONFIG)
+
 
 define Package/gluon-mesh-wireguard
   SECTION:=gluon
@@ -26,7 +29,7 @@ endef
 
 define Package/gluon-mesh-wireguard/install
         $(CP) ./files/* $(1)/
-	$(call GluonInstallI18N,gluon-mesh-wireguard,$(1))
+        $(call GluonInstallI18N,gluon-mesh-wireguard,$(1))
 endef
 
 $(eval $(call BuildPackage,gluon-mesh-wireguard))
